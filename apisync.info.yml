@@ -1,0 +1,6 @@
+name: Api Sync module
+type: module
+description: Modules to integrate Drupal and a valid REST / oDATA Api
+package: liip
+core_version_requirement: ^9.1 || ^10
+configure: apisync.admin_config_apisync

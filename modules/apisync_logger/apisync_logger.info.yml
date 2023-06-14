@@ -1,0 +1,8 @@
+name: API Sync Logger
+type: module
+description: Consolidated logging for API Sync Log events.
+core_version_requirement: ^9 || ^10
+package: Liip
+configure: apisync_logger.settings
+dependencies:
+  - apisync:apisync

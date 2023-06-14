@@ -1,0 +1,21 @@
+# Add some local task links to facilitate navigation.
+
+apisync_mapping.add_action:
+  route_name: entity.apisync_mapping.add_form
+  title: 'Add Mapping'
+  appears_on:
+    - entity.apisync_mapping.list
+
+apisync_mapped_object.add_action:
+  route_name: entity.apisync_mapped_object.add_page
+  class: '\Drupal\apisync_mapping_ui\Plugin\Menu\LocalAction\ApiSyncMappedObjectAddLocalAction'
+  title: 'Create Mapped Object'
+  appears_on:
+    - entity.apisync_mapped_object.list
+
+apisync_mapped_object_type.add_action:
+  route_name: entity.apisync_mapped_object_type.add_form
+  class: '\Drupal\apisync_mapping_ui\Plugin\Menu\LocalAction\ApiSyncMappedObjectAddLocalAction'
+  title: 'Add Mapped Object Type'
+  appears_on:
+    - entity.apisync_mapped_object_type.list

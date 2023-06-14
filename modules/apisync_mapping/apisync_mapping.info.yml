@@ -1,0 +1,10 @@
+name: API Sync Mapping
+type: module
+description: Map Drupal entities to API Sync objects.
+package: Liip
+core_version_requirement: ^9.1 || ^10
+dependencies:
+  - apisync:apisync
+  - dynamic_entity_reference:dynamic_entity_reference
+  - typed_data:typed_data
+configure: entity.apisync_mapped_object_type.collection

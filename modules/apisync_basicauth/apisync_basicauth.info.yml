@@ -1,0 +1,5 @@
+name: Api Sync BasicAuth module
+type: module
+description: Provides a BasicAuth plugin for API Sync
+package: liip
+core_version_requirement: ^9.1 || ^10

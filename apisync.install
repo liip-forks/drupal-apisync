@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * API Sync install file.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Purge API Sync module state variables.
+ */
+function apisync_uninstall() {
+  // apisync.mapping_pull_info is not being removed at present so that if
+  // reinstalled the state is still present. It can be manually reset if needed.
+  $delete = [
+    'apisync.instance_url',
+    'apisync.access_token',
+    'apisync.refresh_token',
+    'apisync.identity',
+    'apisync.last_requirements_check',
+    'apisync.usage',
+    'apisync.tls_status',
+  ];
+  \Drupal::state()->deleteMultiple($delete);
+}

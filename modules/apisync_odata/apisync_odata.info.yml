@@ -1,0 +1,7 @@
+# To be deleted after the module is uninstalled on stage.
+name: API Sync OData Client
+type: module
+description: To be deleted after it is uninstalled.
+package: liip
+core_version_requirement: ^9.1 || ^10
+configure: entity.apisync_mapping.list

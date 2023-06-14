@@ -1,0 +1,23 @@
+apisync.structure_index:
+  route_name: apisync.structure_index
+  parent: system.admin_structure
+  title: Api Sync
+  description: 'Manage API Sync mappings.'
+
+apisync_mapping.admin:
+  title: API Sync Mappings
+  description: 'API Sync Mappings'
+  parent: apisync.structure_index
+  route_name: entity.apisync_mapping.list
+
+apisync_mapped_object.admin:
+  title: API Sync Mapped Objects
+  description: 'Api Sync Mapped Objects'
+  parent: system.admin_content
+  route_name: entity.apisync_mapped_object.list
+
+entity.apisync_mapped_object_type.overview:
+  title: API Sync Mapped Object Types
+  parent:  apisync.structure_index
+  description: 'Bundles to allow foreign key fields per mapping.'
+  route_name: entity.apisync_mapped_object_type.collection

@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Contains apisync_logger.module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function apisync_logger_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the apisync_logger module.
+    case 'help.page.apisync_logger':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('API Sync Logger') . '</p>';
+      return $output;
+
+    default:
+  }
+}

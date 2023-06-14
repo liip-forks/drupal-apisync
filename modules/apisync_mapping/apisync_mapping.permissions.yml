@@ -1,0 +1,21 @@
+administer apisync mapping:
+  title: 'Administer API Sync mapping'
+  description: 'Administer API Sync field maps.'
+  restrict access: TRUE
+view apisync mapping:
+  title: 'View API Sync mapping'
+  description: 'View API Sync mapping data.'
+  restrict access: TRUE
+administer apisync mapped objects:
+  title: 'Administer API Sync mapped objects'
+  description: 'Administer API Sync mapped objects'
+  restrict access: TRUE
+
+administer apisync mapped object type:
+  title: 'Administer API Sync Mapped Object Type'
+  description: 'Administer API Sync field map to mapped object.'
+  restrict access: TRUE
+view apisync mapped object type:
+  title: 'View API Sync mapped object type'
+  description: 'View API Sync mapped object type.'
+  restrict access: TRUE

@@ -1,0 +1,8 @@
+apisync_logger.settings:
+  path: '/admin/config/apisync/logger'
+  defaults:
+    _form: '\Drupal\apisync_logger\Form\SettingsForm'
+    _title: 'API Sync Logger'
+    _description: 'Manage API Sync Logger module settings.'
+  requirements:
+    _permission: 'administer apisync'

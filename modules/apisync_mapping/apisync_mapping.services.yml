@@ -1,0 +1,26 @@
+services:
+  plugin.manager.apisync_mapping_field:
+    class: Drupal\apisync_mapping\ApiSyncMappingFieldPluginManager
+    arguments: ['@container.namespaces', '@cache.default', '@module_handler']
+
+  apisync_mapping.mappable_entity_types:
+    class: Drupal\apisync_mapping\ApiSyncMappableEntityTypes
+    arguments: ['@entity_type.manager']
+
+  apisync_mapping.apisync_id_provider:
+    class: Drupal\apisync_mapping\ApiSyncIdProvider
+
+  apisync_mapping.mapped_object_factory:
+    class: Drupal\apisync_mapping\ApiSyncMappedObjectFactory
+    arguments:
+      - '@entity_type.manager'
+      - '@apisync_mapping.apisync_id_provider'
+
+  apisync_mapping.apisync_delete_provider:
+    class: Drupal\apisync_mapping\ApiSyncDeleteProvider
+    arguments:
+      - '@entity_type.manager'
+      - '@database'
+      - '@apisync.odata_client'
+      - '@apisync_mapping.apisync_id_provider'
+      - '@logger.channel.apisync'

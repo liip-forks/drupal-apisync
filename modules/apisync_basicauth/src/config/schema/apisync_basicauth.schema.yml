@@ -1,0 +1,10 @@
+apisync_basicauth.settings:
+  type: config_object
+  label: 'API Sync Settings'
+  mapping:
+    login_user:
+      type: string
+      label: 'Login User'
+    login_password:
+      type: string
+      label: 'Login Password'

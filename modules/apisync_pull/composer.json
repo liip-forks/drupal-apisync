@@ -1,0 +1,26 @@
+{
+    "name": "drupal/apisync_pull",
+    "description": "Pull data from OData API to Drupal.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "ayalon",
+            "homepage": "https://www.drupal.org/u/ayalon",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Trent Crawford",
+            "email": "trent.crawford@liip.ch"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0"
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

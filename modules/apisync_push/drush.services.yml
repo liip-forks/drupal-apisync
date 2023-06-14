@@ -1,0 +1,6 @@
+services:
+  apisync_push.commands:
+    class: \Drupal\apisync_push\Commands\ApiSyncPushCommands
+    arguments: ['@apisync.odata_client', '@entity_type.manager', '@plugin.manager.apisync.auth_providers', '@queue.apisync_push', '@database']
+    tags:
+      - { name: drush.command }

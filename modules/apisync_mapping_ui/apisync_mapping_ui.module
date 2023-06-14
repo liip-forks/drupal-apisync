@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * Manages API Sync object and Drupal entity mappings.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\apisync_mapping\ApiSyncMappedObjectTypeListBuilder;
+use Drupal\apisync_mapping_ui\ApiSyncMappedObjectList;
+use Drupal\apisync_mapping_ui\ApiSyncMappingList;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappedObjectDeleteForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappedObjectForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappedObjectTypeDeleteForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappedObjectTypeForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappingAddForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappingDeleteForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappingDisableForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappingEditForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappingEnableForm;
+use Drupal\apisync_mapping_ui\Form\ApiSyncMappingFieldsForm;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\entity\Routing\AdminHtmlRouteProvider;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function apisync_mapping_ui_entity_type_alter(array &$entity_types) {
+  // There's no good way to add a link template based on existing mapping
+  // definitions while we're building entity type definitions. We can't load
+  // existing mappings, because to do that we need to load entity types which
+  // creates an infinite recursion. So, we set the link template on any
+  // mappable entity, and hide it for any entity types that don't have
+  // mappings.
+  foreach ($entity_types as $entity_type_id => $entity_type) {
+    if ($entity_type_id == 'apisync_mapping' || $entity_type_id == 'apisync_mapped_object' || $entity_type_id === 'apisync_mapped_object_type') {
+      continue;
+    }
+    if ($entity_type->hasViewBuilderClass() && $entity_type->hasLinkTemplate('canonical')) {
+      $entity_type->setLinkTemplate('apisync', "/$entity_type_id/{{$entity_type_id}}/apisync");
+    }
+  }
+
+  // Set our UI classes for API SyncMappingEntity.
+  $entity_types['apisync_mapping']->setHandlerClass('list_builder', ApiSyncMappingList::class);
+  $entity_types['apisync_mapping']->setFormClass('add', ApiSyncMappingAddForm::class);
+  $entity_types['apisync_mapping']->setFormClass('edit', ApiSyncMappingEditForm::class);
+  $entity_types['apisync_mapping']->setFormClass('disable', ApiSyncMappingDisableForm::class);
+  $entity_types['apisync_mapping']->setFormClass('delete', ApiSyncMappingDeleteForm::class);
+  $entity_types['apisync_mapping']->setFormClass('enable', ApiSyncMappingEnableForm::class);
+  $entity_types['apisync_mapping']->setFormClass('fields', ApiSyncMappingFieldsForm::class);
+  $entity_types['apisync_mapping']->setLinkTemplate('add-form', '/admin/structure/apisync/mappings/add');
+  $entity_types['apisync_mapping']->setLinkTemplate('edit-form', '/admin/structure/apisync/mappings/manage/{apisync_mapping}');
+  $entity_types['apisync_mapping']->setLinkTemplate('delete-form', '/admin/structure/apisync/mappings/manage/{apisync_mapping}/delete');
+
+  // Set UI classes for ApiSyncMappedObject.
+  $entity_types['apisync_mapped_object']->setHandlerClass('list_builder', ApiSyncMappedObjectList::class);
+  $entity_types['apisync_mapped_object']->setHandlerClass('route_provider', [
+    'default' => AdminHtmlRouteProvider::class,
+  ]);
+  $entity_types['apisync_mapped_object']->setFormClass('add', ApiSyncMappedObjectForm::class);
+  $entity_types['apisync_mapped_object']->setFormClass('edit', ApiSyncMappedObjectForm::class);
+  $entity_types['apisync_mapped_object']->setFormClass('delete', ApiSyncMappedObjectDeleteForm::class);
+  $entity_types['apisync_mapped_object']->setFormClass('default', ApiSyncMappedObjectForm::class);
+  $entity_types['apisync_mapped_object']->setLinkTemplate('add-page', '/admin/content/apisync/add');
+  $entity_types['apisync_mapped_object']->setLinkTemplate('add-form', '/admin/content/apisync/add/{apisync_mapped_object_type}');
+  $entity_types['apisync_mapped_object']->setLinkTemplate('edit-form', '/admin/content/apisync/{apisync_mapped_object}/edit');
+  $entity_types['apisync_mapped_object']->setLinkTemplate('delete-form', '/admin/content/apisync/{apisync_mapped_object}/delete');
+  $entity_types['apisync_mapped_object']->setLinkTemplate('canonical', '/admin/content/apisync/{apisync_mapped_object}');
+
+  // Set UI classes for ApiSyncMappedObject type.
+  $entity_types['apisync_mapped_object_type']->setHandlerClass('list_builder', ApiSyncMappedObjectTypeListBuilder::class);
+  $entity_types['apisync_mapped_object_type']->setFormClass('add', ApiSyncMappedObjectTypeForm::class);
+  $entity_types['apisync_mapped_object_type']->setFormClass('edit', ApiSyncMappedObjectTypeForm::class);
+  $entity_types['apisync_mapped_object_type']->setFormClass('delete', ApiSyncMappedObjectTypeDeleteForm::class);
+  $entity_types['apisync_mapped_object_type']->setLinkTemplate('add-form', '/admin/structure/apisync/mapped-object-types/add/{mapping_id}');
+  $entity_types['apisync_mapped_object_type']->setLinkTemplate('edit-form', '/admin/structure/apisync/mapped-object-types/{apisync_mapped_object_type}/edit');
+  $entity_types['apisync_mapped_object_type']->setLinkTemplate('delete-form', '/admin/structure/apisync/mapped-object-types/{apisync_mapped_object_type}/delete');
+  $entity_types['apisync_mapped_object_type']->setLinkTemplate('canonical', '/admin/structure/apisync/mapped-object-types/{apisync_mapped_object_type}');
+  $entity_types['apisync_mapped_object_type']->setLinkTemplate('collection', '/admin/structure/apisync/mapped-object-types');
+
+}
+
+/**
+ * Implements hook_local_actions_alter().
+ */
+function apisync_mapping_ui_menu_local_actions_alter(&$local_actions) {
+  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
+    /** @var \Drupal\apisync_mapping\ApiSyncMappingStorage $storage */
+    $storage = \Drupal::entityTypeManager()->getStorage('apisync_mapping');
+    if ($storage->loadByDrupal($entity_type_id)) {
+      $local_actions['apisync_mapped_object.add_action']['appears_on'][] =
+        "entity.$entity_type_id.apisync";
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_operation().
+ */
+function apisync_mapping_ui_entity_operation(EntityInterface $entity) {
+  $operations = [];
+  /** @var \Drupal\apisync_mapping\ApiSyncMappingStorage $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage('apisync_mapping');
+  if ($storage->loadByEntity($entity)) {
+    $operations['apisync'] = [
+      'title' => t('API Sync'),
+      'weight' => 200,
+      'url' => $entity->toUrl('apisync'),
+    ];
+  }
+  return $operations;
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function apisync_mapping_ui_entity_extra_field_info() {
+  // Include API Sync data for mapped entities.
+  $extra = [];
+  /** @var \Drupal\apisync_mapping\ApiSyncMappingStorage $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage('apisync_mapping');
+  $mappings = $storage->loadPushMappings();
+  foreach ($mappings as $mapping) {
+    $extra[$mapping->drupal_entity_type][$mapping->drupal_bundle] = [
+      'display' => [
+        'apisync_id' => [
+          'label' => t('API Sync Id'),
+          'description' => t('ID of a linked API Sync object.'),
+          'weight' => 0,
+        ],
+        'apisync_last_sync' => [
+          'label' => t('API Sync last sync'),
+          'description' => t('Timestamp for the latest sync with API Sync.'),
+          'weight' => 0,
+        ],
+      ],
+    ];
+  }
+  return $extra;
+}

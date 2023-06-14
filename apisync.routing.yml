@@ -1,0 +1,71 @@
+apisync.global_settings:
+  path: '/admin/config/apisync/settings'
+  defaults:
+    _form: '\Drupal\apisync\Form\SettingsForm'
+    _title: 'API Sync'
+    _description: 'Manage global settings for API Sync Suite.'
+  requirements:
+    _permission: 'administer apisync'
+
+apisync.admin_config_apisync:
+  path: '/admin/config/apisync'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'API Sync'
+    _description: 'Manage settings for API Sync Suite.'
+  requirements:
+    _permission: 'administer apisync+authorize apisync'
+
+apisync.auth_config:
+  path: '/admin/config/apisync/authorize'
+  defaults:
+    _form: '\Drupal\apisync\Form\ApiSyncAuthSettings'
+    _title: 'API Sync Authorization Config'
+  requirements:
+    _permission: 'authorize apisync'
+
+entity.apisync_auth.collection:
+  path: '/admin/config/apisync/authorize/list'
+  defaults:
+    _entity_list: 'apisync_auth'
+    _title: 'API Sync Authorization Config'
+  requirements:
+    _permission: 'authorize apisync'
+  options:
+    no_cache: TRUE
+
+entity.apisync_auth.edit_form:
+  path: '/admin/config/apisync/authorize/edit/{apisync_auth}'
+  defaults:
+    _entity_form: 'apisync_auth.default'
+  requirements:
+    _entity_access: 'apisync_auth.update'
+  options:
+    no_cache: TRUE
+
+entity.apisync_auth.add_form:
+  path: '/admin/config/apisync/authorize/add'
+  defaults:
+    _entity_form: 'apisync_auth.default'
+  requirements:
+    _entity_create_access: 'apisync_auth'
+  options:
+    no_cache: TRUE
+
+entity.apisync_auth.revoke:
+  path: '/admin/config/apisync/authorize/revoke/{apisync_auth}'
+  defaults:
+    _entity_form: 'apisync_auth.revoke'
+  requirements:
+    _permission: 'authorize apisync'
+  options:
+    no_cache: TRUE
+
+entity.apisync_auth.delete_form:
+  path: '/admin/config/apisync/authorize/delete/{apisync_auth}'
+  defaults:
+    _entity_form: 'apisync_auth.delete'
+  requirements:
+    _permission: 'authorize apisync'
+  options:
+    no_cache: TRUE

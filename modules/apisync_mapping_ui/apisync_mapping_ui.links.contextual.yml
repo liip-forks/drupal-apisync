@@ -1,0 +1,10 @@
+entity.apisync_mapped_object.edit_form:
+  route_name: entity.apisync_mapped_object.edit_form
+  group: apisync_mapped_object
+  title: Edit
+
+entity.apisync_mapped_object.delete_form:
+  route_name: entity.apisync_mapped_object.delete_form
+  group: apisync_mapped_object
+  title: Delete
+  weight: 10

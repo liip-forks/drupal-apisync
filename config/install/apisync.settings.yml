@@ -1,0 +1,7 @@
+global_push_limit: 100000
+pull_max_queue_size: 100000
+standalone: false
+limit_mapped_object_revisions: 10
+apisync_auth_provider: ''
+short_term_cache_lifetime: 3600
+long_term_cache_lifetime: 604800

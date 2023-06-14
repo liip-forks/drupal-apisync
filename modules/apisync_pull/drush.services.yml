@@ -1,0 +1,6 @@
+services:
+  apisync_pull.commands:
+    class: \Drupal\apisync_pull\Commands\ApiSyncPullCommands
+    arguments: ['@apisync.odata_client', '@entity_type.manager', '@plugin.manager.apisync.auth_providers', '@apisync_pull.queue_handler', '@event_dispatcher']
+    tags:
+      - { name: drush.command }

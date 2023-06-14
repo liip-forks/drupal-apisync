@@ -1,0 +1,17 @@
+apisync_push.endpoint:
+  path: '/apisync_push/endpoint/{key}'
+  defaults:
+    _controller: '\Drupal\apisync_push\PushController::endpoint'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access_system_cron: 'TRUE'
+
+apisync_push.endpoint.apisync_mapping:
+  path: '/apisync_push/{apisync_mapping}/endpoint/{key}'
+  defaults:
+    _controller: '\Drupal\apisync_push\PushController::mappingEndpoint'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access_system_cron: 'TRUE'

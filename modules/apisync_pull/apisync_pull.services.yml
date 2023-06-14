@@ -1,0 +1,19 @@
+services:
+  apisync_pull.queue_handler:
+    class: Drupal\apisync_pull\QueueHandler
+    arguments: ['@apisync.odata_client', '@entity_type.manager', '@queue.database', '@config.factory', '@event_dispatcher', '@datetime.time']
+
+  apisync_pull.delete_handler:
+    class: Drupal\apisync_pull\DeleteHandler
+    arguments:
+      - '@apisync.odata_client'
+      - '@entity_type.manager'
+      - '@state'
+      - '@event_dispatcher'
+      - '@apisync_mapping.apisync_id_provider'
+      - '@apisync_mapping.apisync_delete_provider'
+
+  apisync_pull.event_subscriber:
+    class: Drupal\apisync_pull\EventSubscriber\PullEventSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install/uninstall tasks for the API Sync Pull module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_uninstall().
+ */
+function apisync_pull_uninstall() {
+  $delete = [
+    'apisync.mapping_pull_info',
+  ];
+  \Drupal::state()->deleteMultiple($delete);
+}

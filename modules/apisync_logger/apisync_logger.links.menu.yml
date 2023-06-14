@@ -1,0 +1,5 @@
+apisync_logger.settings:
+  route_name: apisync_logger.settings
+  parent: apisync.admin_config_apisync
+  title: API Sync Logger
+  description: 'Manage API Sync Logger module settings.'

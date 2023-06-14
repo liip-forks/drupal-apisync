@@ -1,0 +1,32 @@
+apisync_pull.endpoint:
+  path: '/apisync_pull/endpoint/{key}'
+  defaults:
+    _controller: '\Drupal\apisync_pull\Controller\PullController::endpoint'
+  options:
+    no_cache: TRUE
+  requirements:
+    _access_system_cron: 'TRUE'
+
+apisync_pull.endpoint.apisync_mapping:
+  path: '/apisync_pull/{apisync_mapping}/endpoint/{key}'
+  defaults:
+    _controller: '\Drupal\apisync_pull\Controller\PullController::endpoint'
+  options:
+    no_cache: TRUE
+    parameters:
+      apisync_mapping:
+        type: entity:apisync_mapping
+  requirements:
+    _access_system_cron: 'TRUE'
+
+apisync_pull.endpoint.single_record:
+  path: '/apisync_pull/{apisync_mapping}/endpoint/{key}/record/{id}'
+  defaults:
+    _controller: '\Drupal\apisync_pull\Controller\PullController::endpoint'
+  options:
+    no_cache: TRUE
+    parameters:
+      apisync_mapping:
+        type: entity:apisync_mapping
+  requirements:
+    _access_system_cron: 'TRUE'

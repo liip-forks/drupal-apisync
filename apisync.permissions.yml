@@ -1,0 +1,9 @@
+administer apisync:
+  title: 'administer apisync'
+  description: 'Administer API Sync integration'
+  restrict access: TRUE
+
+authorize apisync:
+  title: 'authorize apisync'
+  description: 'Access API Sync OAuth consumer key, secret, and identify information'
+  restrict access: TRUE

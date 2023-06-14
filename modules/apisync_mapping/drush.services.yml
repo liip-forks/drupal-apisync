@@ -1,0 +1,12 @@
+services:
+  apisync_mapping.commands:
+    class: Drupal\apisync_mapping\Commands\ApiSyncMappingCommands
+    arguments:
+      - '@apisync.odata_client'
+      - '@entity_type.manager'
+      - '@plugin.manager.apisync.auth_providers'
+      - '@config.factory'
+      - '@database'
+      - '@apisync_mapping.apisync_delete_provider'
+    tags:
+      - { name: drush.command }

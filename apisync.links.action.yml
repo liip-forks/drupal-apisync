@@ -1,0 +1,7 @@
+apisync_auth.add_action:
+  route_name: entity.apisync_auth.add_form
+  title: 'Add API Sync Auth Provider'
+  appears_on:
+    - entity.apisync_auth.collection
+    - entity.apisync_auth.edit_form
+    - apisync.auth_config

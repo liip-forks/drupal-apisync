@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Pull updates from remote when a API Sync object is updated.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_cron().
+ */
+function apisync_pull_cron() {
+  if (\Drupal::config('apisync.settings')->get('standalone')) {
+    // If global standalone processing is enabled, stop here.
+    return;
+  }
+
+  if (\Drupal::service('plugin.manager.apisync.auth_providers')->getToken()) {
+    \Drupal::service('apisync_pull.queue_handler')->getUpdatedRecords();
+    \Drupal::service('apisync_pull.delete_handler')->processDeletedRecords();
+  }
+}

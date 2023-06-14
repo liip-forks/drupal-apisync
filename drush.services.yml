@@ -1,0 +1,6 @@
+services:
+  apisync.commands:
+    class: \Drupal\apisync\Commands\ApiSyncCommands
+    arguments: ['@apisync.odata_client', '@entity_type.manager', '@plugin.manager.apisync.auth_providers']
+    tags:
+      - { name: drush.command }

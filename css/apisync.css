@@ -1,0 +1,26 @@
+.apisync-mapping-fields-form .even {
+  /* Why doesn't this work? */
+  background-color: lightgray;
+}
+
+.apisync-mapping-fields-form .field_mapping_field > .form-item {
+  float: left;
+  width: 25%;
+  padding-left: 1em;
+}
+
+.apisync-mapping-fields-form .field_mapping_field > .narrow {
+  width: 10%;
+}
+
+.apisync-mapping-fields-form .field_mapping_field {
+  clear: left;
+}
+
+.apisync-mapping-fields-form #edit-buttons {
+  clear: both;
+}
+
+.apisync-mapping-fields-form .field_mapping_field > .form-item .drupal-field-value {
+  width: initial;
+}

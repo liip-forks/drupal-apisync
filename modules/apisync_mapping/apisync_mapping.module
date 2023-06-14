@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * @file
+ * Manages API Sync object and Drupal entity mappings.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Ensures drupal entity has an update timestamp.
+ */
+function apisync_mapping_entity_update(EntityInterface $entity) {
+  // Check for mappings (much faster than looking for mapped objects.)
+  $mappings = \Drupal::service('entity_type.manager')
+    ->getStorage('apisync_mapping')
+    ->loadByDrupal($entity->getEntityTypeId());
+  if (empty($mappings)) {
+    return;
+  }
+
+  // If mappings, check for mapped objects.
+  $mapped_objects = \Drupal::service('entity_type.manager')
+    ->getStorage('apisync_mapped_object')
+    ->loadByDrupal($entity->getEntityTypeId(), $entity->id());
+
+  foreach ($mapped_objects as $mapped_object) {
+    // Resaving the object should update the timestamp.
+    // NB: we are purposefully not creating a new revision here.
+    $mapped_object
+      ->set('entity_updated', \Drupal::time()->getRequestTime())
+      ->save();
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ *
+ * Delete any corresponding Mapped Objects when an entity is deleted.
+ */
+function apisync_mapping_entity_delete(EntityInterface $entity) {
+  /** @var \Drupal\apisync_mapping\ApiSyncMappedObjectStorageInterface $storage */
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('apisync_mapped_object');
+
+  if (\Drupal::moduleHandler()->moduleExists('apisync_push') &&
+    \Drupal::database()->schema()->tableExists('apisync_push_queue')) {
+    $mapped_objects = $storage->loadByEntity($entity);
+
+    if (!$mapped_objects) {
+      return;
+    }
+
+    foreach ($mapped_objects as $mapped_object) {
+      $mapping = $mapped_object->getMapping();
+      $queued_items = \Drupal::database()
+        ->select('apisync_push_queue', 'spq')
+        ->fields('spq', ['item_id'])
+        ->condition('entity_id', $entity->id())
+        ->condition('name', $mapping->id())
+        ->condition('op', 'push_delete')
+        ->execute();
+
+      // If this was queued to be deleted, don't delete the mapping yet, defer
+      // to apisync_push.
+      if (!$queued_items->fetch()) {
+        $mapped_object->delete();
+      }
+    }
+  }
+  else {
+    $storage->delete($storage->loadByEntity($entity));
+  }
+
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function apisync_mapping_field_formatter_info_alter(array &$info) {
+  $info['link']['field_types'][] = 'mapped_entity_link';
+  $info['link']['field_types'][] = 'apisync_link';
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function apisync_mapping_module_implements_alter(&$implementations, $hook) {
+  // This needs to go last to make sure the mapping isn't deleted before
+  // everything is done being cleaned up.
+  switch ($hook) {
+    case 'entity_delete':
+      $group = $implementations['apisync_mapping'];
+      unset($implementations['apisync_mapping']);
+      $implementations['apisync_mapping'] = $group;
+      break;
+  }
+}

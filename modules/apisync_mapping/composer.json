@@ -1,0 +1,26 @@
+{
+    "name": "drupal/apisync_mapping",
+    "description": "Map Drupal entities to API Sync objects.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "ayalon",
+            "homepage": "https://www.drupal.org/u/ayalon",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Trent Crawford",
+            "email": "trent.crawford@liip.ch"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0"
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

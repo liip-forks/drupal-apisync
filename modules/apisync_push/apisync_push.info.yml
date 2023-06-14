@@ -1,0 +1,7 @@
+name: API Sync Push
+type: module
+description: Push data to the oData interface when updates are made to Drupal entities.
+package: Apisync
+core_version_requirement: ^9.1 || ^10
+dependencies:
+  - apisync:apisync_mapping

@@ -1,0 +1,59 @@
+apisync.settings:
+  type: config_object
+  label: 'API Sync Settings'
+  mapping:
+    global_push_limit:
+      type: integer
+      label: 'Global push queue limit'
+      description: 'Set the maximum number of records to be processed during each push queue process. Use 0 for no limit.'
+    pull_max_queue_size:
+      type: integer
+      label: 'Pull queue max size'
+      description: 'Set the maximum number of items which can be enqueued for pull at any given time. Note this setting is not exactly analogous to the push queue limit, since Drupal Cron API does not offer such granularity. Use 0 for no limit.'
+    standalone:
+      type: boolean
+      label: 'Provide standalone queue processing endpoint and disable cron processing.'
+      description: 'Enable standalone queue processing, and do not process push mappings during cron. Pull queue will be populated and processed via standalone endpoint, and may also be processed during cron. Note: when enabled, you must set up your own service to query this endpoint.'
+
+    limit_mapped_object_revisions:
+      type: integer
+      label: 'Limit mapped object revisions'
+      description: 'Specify a maximum number of revisions to retain for Mapped Object content. Use 0 for no limit.'
+    apisync_auth_provider:
+      type: string
+      label: 'Default authorization provider id'
+      description: 'A apisync_auth config entity id which provides API authorization.'
+    short_term_cache_lifetime:
+      type: integer
+      label: "Short term cache lifetime"
+      description: "Value, in seconds, to store short term meta data. This is used for, e.g., the list of Object Types, Object Descriptions, and Record Types."
+    long_term_cache_lifetime:
+      type: integer
+      label: "Long term cache lifetime"
+      description: "Value, in seconds, to store long term meta data. This is used for, e.g., the list of API versions."
+    allowlist_entity_types:
+      type: string
+      label: 'Whitelist entity types on API'
+      description: 'Limit available entity types on the API. One per line.'
+    allowlist_entity_sets:
+      type: string
+      label: 'Whiteliste entity sets on API'
+      description: 'Limit available entity sets on the API. One per line.'
+
+apisync.apisync_auth.*:
+  type: config_entity
+  label: 'API Sync Auth Provider'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+      translatable: true
+    provider:
+      type: string
+      label: 'Provider Plugin'
+    provider_settings:
+      type: apisync.auth_provider_settings.[%parent.provider]
+      label: 'Provider Plugin Settings'

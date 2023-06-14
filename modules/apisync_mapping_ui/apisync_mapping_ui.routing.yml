@@ -1,0 +1,117 @@
+apisync.structure_index:
+  path: '/admin/structure/apisync'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'API Sync'
+    _description: 'Manage API Sync mappings.'
+  requirements:
+    _permission: 'administer apisync'
+
+entity.apisync_mapping.list:
+  path: '/admin/structure/apisync/mappings'
+  defaults:
+    _entity_list: 'apisync_mapping'
+    _title: 'API Sync Mappings'
+  requirements:
+    _permission: 'administer apisync mapping'
+
+entity.apisync_mapping.add_form:
+  path: '/admin/structure/apisync/mappings/add'
+  defaults:
+    _entity_form: 'apisync_mapping.add'
+    _title: 'Add Mapping'
+  requirements:
+    _entity_create_access: 'apisync_mapping'
+
+entity.apisync_mapping.edit_form:
+  path: '/admin/structure/apisync/mappings/manage/{apisync_mapping}'
+  defaults:
+    _entity_form: 'apisync_mapping.edit'
+    _title_callback: '\Drupal\apisync_mapping_ui\Controller\ApiSyncMappingController::editTitle'
+  requirements:
+    _entity_access: 'apisync_mapping.update'
+
+entity.apisync_mapping.fields:
+  path: '/admin/structure/apisync/mappings/manage/{apisync_mapping}/fields'
+  defaults:
+    _entity_form: 'apisync_mapping.fields'
+    _title_callback: '\Drupal\apisync_mapping_ui\Controller\ApiSyncMappingController::fieldsTitle'
+  requirements:
+    _entity_access: 'apisync_mapping.update'
+
+entity.apisync_mapping.delete_form:
+  path: '/admin/structure/apisync/mappings/manage/{apisync_mapping}/delete'
+  defaults:
+    _entity_form: 'apisync_mapping.delete'
+  requirements:
+    _entity_access: 'apisync_mapping.delete'
+
+entity.apisync_mapping.enable:
+  path: '/admin/structure/apisync/mappings/manage/{apisync_mapping}/enable'
+  defaults:
+    _entity_form: 'apisync_mapping.enable'
+  requirements:
+    _entity_access: 'apisync_mapping.update'
+
+entity.apisync_mapping.disable:
+  path: '/admin/structure/apisync/mappings/manage/{apisync_mapping}/disable'
+  defaults:
+    _entity_form: 'apisync_mapping.disable'
+  requirements:
+    _entity_access: 'apisync_mapping.update'
+
+entity.apisync_mapped_object.list:
+  path: '/admin/content/apisync'
+  defaults:
+    _entity_list: 'apisync_mapped_object'
+    _title: 'API Sync Mapped Objects'
+  requirements:
+    _permission: 'administer apisync mapped objects'
+
+entity.apisync_mapped_object.canonical:
+  path: '/admin/content/apisync/{apisync_mapped_object}'
+  defaults:
+    _title: 'API Sync Mapped Object'
+    _entity_view: 'apisync_mapped_object.full'
+  requirements:
+    _permission: 'administer apisync mapped objects'
+
+entity.apisync_mapped_object.add_form:
+  path: '/admin/content/apisync/add/{apisync_mapped_object_type}'
+  defaults:
+    _entity_form: 'apisync_mapped_object.add'
+    _title: 'API Sync Mapped Object'
+  requirements:
+    _permission: 'administer apisync mapped objects'
+
+entity.apisync_mapped_object.edit_form:
+  path: '/admin/content/apisync/{apisync_mapped_object}/edit'
+  defaults:
+    _entity_form: 'apisync_mapped_object.edit'
+    _title: 'API Sync Mapped Object'
+  requirements:
+    _permission: 'administer apisync mapped objects'
+
+entity.apisync_mapped_object.delete_form:
+  path: '/admin/content/apisync/{apisync_mapped_object}/delete'
+  defaults:
+    _entity_form: 'apisync_mapped_object.delete'
+  requirements:
+    _permission: 'administer apisync mapped objects'
+
+entity.apisync_mapped_object_type.add_form:
+  path: '/admin/structure/apisync/mapped-object-types/add/{mapping_id}'
+  defaults:
+    _entity_form: 'apisync_mapped_object_type.add'
+    _title: 'API Sync Mapped Object Type'
+    mapping_id: ''
+  requirements:
+    _permission: 'administer apisync mapped object types'
+
+apisync_mapping.autocomplete_controller_autocomplete:
+  path: '/apisync_mapping/autocomplete/{entity_type_id}/{bundle}'
+  defaults:
+    _controller: '\Drupal\apisync_mapping_ui\Controller\AutocompleteController::autocomplete'
+    _format: json
+  requirements:
+    _permission: 'administer apisync mapped objects'

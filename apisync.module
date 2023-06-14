@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * API and module for API Sync integration.
+ */
+
+declare(strict_types = 1);

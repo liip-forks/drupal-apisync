@@ -1,0 +1,24 @@
+apisync.admin_config_apisync:
+  route_name: apisync.admin_config_apisync
+  parent: system.admin_config
+  title: API Sync
+  description: 'Manage settings for API Sync.'
+
+apisync.global_settings:
+  route_name: apisync.global_settings
+  parent: apisync.admin_config_apisync
+  title: API Sync Settings
+  description: 'Manage global settings for API Sync.'
+  weight: -100
+
+apisync.auth_config:
+  route_name: apisync.auth_config
+  parent: apisync.admin_config_apisync
+  title: API Sync Authorization
+  description: 'API Sync Authorization.'
+
+entity.apisync_auth.collection:
+  route_name: entity.apisync_auth.collection
+  parent: apisync.auth_config
+  title: API Sync Authorization Providers
+  description: 'API Sync Authorization Providers.'

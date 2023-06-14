@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Logger install file.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\apisync\Event\ApiSyncEvents;
+
+/**
+ * Install API Sync Logger default log level.
+ */
+function apisync_logger_update_8001() {
+  $settings = \Drupal::configFactory()->getEditable('apisync_logger.settings');
+  $settings->set('log_level', ApiSyncEvents::NOTICE);
+  $settings->save();
+}

@@ -1,0 +1,9 @@
+services:
+  logger.channel.apisync:
+    parent: logger.channel_base
+    arguments: ['apisync']
+  apisync_logger.event_subscriber:
+    class: Drupal\apisync_logger\EventSubscriber\ApiSyncLoggerSubscriber
+    arguments: ['@logger.channel.apisync', '@config.factory']
+    tags:
+      - { name: event_subscriber }

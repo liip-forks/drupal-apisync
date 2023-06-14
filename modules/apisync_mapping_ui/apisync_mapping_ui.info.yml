@@ -1,0 +1,8 @@
+name: Api Sync Mapping UI
+type: module
+description: User interface for managing mappings.
+package: Liip
+core_version_requirement: ^9.1 || ^10
+configure: entity.apisync_mapping.list
+dependencies:
+  - apisync:apisync_mapping

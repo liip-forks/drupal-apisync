@@ -1,0 +1,7 @@
+name: API Sync Pull
+type: module
+description: Imports objects from the oData interface based on mappings defined in API Sync Mapping.
+package: Apisync
+core_version_requirement: ^9.1 || ^10
+dependencies:
+  - apisync:apisync_mapping

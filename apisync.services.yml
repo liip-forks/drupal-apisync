@@ -1,0 +1,23 @@
+services:
+  plugin.manager.apisync.auth_providers:
+    class: Drupal\apisync\ApiSyncAuthProviderPluginManager
+    arguments:
+      - '@container.namespaces'
+      - '@cache.discovery'
+      - '@module_handler'
+      - '@entity_type.manager'
+      - '@config.factory'
+  apisync.http_client_wrapper:
+    class: Drupal\apisync\Client\HttpClientWrapper
+    arguments:
+      - '@http_client'
+  apisync.odata_client:
+    class: Drupal\apisync\OData\ODataClient
+    arguments:
+      - '@http_client'
+      - '@config.factory'
+      - '@state'
+      - '@cache.default'
+      - '@serialization.json'
+      - '@datetime.time'
+      - '@plugin.manager.apisync.auth_providers'

@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * API Sync push install.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\apisync_push\PushQueue;
+
+/**
+ * Implements hook_install().
+ */
+function apisync_push_install() {
+  \Drupal::state()->set('apisync.push_queue_processor', PushQueue::DEFAULT_QUEUE_PROCESSOR);
+  \Drupal::state()->set('apisync.push_queue_max_fails', PushQueue::DEFAULT_MAX_FAILS);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function apisync_push_uninstall() {
+  $delete = [
+    'apisync.push_queue_processor',
+    'apisync.push_queue_max_fails',
+    'apisync.mapping_push_info',
+  ];
+  \Drupal::state()->deleteMultiple($delete);
+  \Drupal::service('queue.apisync_push')->deleteTable();
+}
+
+/**
+ * Set default variables for push queue.
+ */
+function apisync_push_update_8001() {
+  if (\Drupal::state()->get('apisync.push_queue_processor', FALSE) === FALSE) {
+    \Drupal::state()->set('apisync.push_queue_processor', PushQueue::DEFAULT_QUEUE_PROCESSOR);
+  }
+  if (\Drupal::state()->get('apisync.push_queue_max_fails', FALSE) === FALSE) {
+    \Drupal::state()->set('apisync.push_queue_max_fails', PushQueue::DEFAULT_MAX_FAILS);
+  }
+}
+
+/**
+ * Create new variables for more granualar push limits.
+ */
+function apisync_push_update_8002() {
+  if (\Drupal::state()->get('apisync.global_push_limit', FALSE) === FALSE) {
+    \Drupal::state()->set('apisync.global_push_limit', PushQueue::DEFAULT_GLOBAL_LIMIT);
+  }
+  \Drupal::state()->delete('apisync.push_limit');
+}
+
+/**
+ * Moves global push limit out of state into config.
+ */
+function apisync_push_update_8003() {
+  $config = \Drupal::configFactory()->getEditable('apisync.settings');
+  if ($config->get('global_push_limit') === NULL) {
+    $config
+      ->set('global_push_limit', \Drupal::state()->get('apisync.global_push_limit', PushQueue::DEFAULT_GLOBAL_LIMIT))
+      ->save();
+  }
+  \Drupal::state()->delete('apisync.global_push_limit');
+}
