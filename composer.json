@@ -8,11 +8,21 @@
       "name": "ayalon",
       "homepage": "https://www.drupal.org/u/ayalon",
       "role": "Maintainer"
+    },
+    {
+      "name": "William Wigginton",
+      "homepage": "https://www.drupal.org/u/wwigginton",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Trent Crawford",
+      "homepage": "https://www.drupal.org/u/tcrawford",
+      "role": "Maintainer"
     }
   ],
   "support": {
     "issues": "https://drupal.org/project/issues/apisync",
-    "source": "http://cgit.drupalcode.org/apisync"
+    "source": "https://github.com/liip-forks/drupal-apisync"
   },
   "extra": {
     "drush": {
