@@ -104,7 +104,7 @@ abstract class ApiSyncMappingFormBase extends EntityForm {
    */
   protected function ensureConnection(
       string $method = 'objects',
-      mixed $arg = [[], TRUE]
+      mixed $arg = [TRUE]
   ): bool {
     $message = '';
     if ($this->client->isInit()) {
