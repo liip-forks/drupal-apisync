@@ -190,7 +190,11 @@ class ODataClient implements ODataClientInterface {
 
       // Any exceptions besides 401 get bubbled up.
       if (!$this->response || $this->response->getStatusCode() != 401) {
-        throw new RestException($this->response, $e->getMessage(), $e->getCode(), $e);
+          // This is likely not the best place to resolve the issue, but we need
+          // to ensure that messages are UTF-8 encoded or loggers can trip up.
+          $message = $e->getMessage();
+          $encodedMessage = mb_convert_encoding($message, 'UTF-8');
+        throw new RestException($this->response, $encodedMessage, $e->getCode(), $e);
       }
     }
 
