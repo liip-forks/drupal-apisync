@@ -1,0 +1,8 @@
+entity.apisync_mapped_object_type.edit_form:
+  path: '/admin/structure/apisync/mapped-object-types/edit/{mapping_id}'
+  defaults:
+    _entity_form: 'apisync_mapped_object_type.edit'
+    _title: 'API Sync Mapped Object Type'
+    mapping_id: ''
+  requirements:
+    _permission: 'administer apisync mapped object types'

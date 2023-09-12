@@ -22,6 +22,9 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
  *      },
+ *     "form" = {
+ *          "edit" = "Drupal\apisync_mapping\Form\ApiSyncMappedObjectForm",
+ *        },
  *   },
  *   config_prefix = "apisync_mapped_object_type",
  *   admin_permission = "administer apisync mapped object type",
