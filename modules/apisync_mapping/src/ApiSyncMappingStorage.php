@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\apisync_mapping;
 
+use Drupal\apisync_mapping\Entity\ApiSyncMappingInterface;
 use Drupal\Core\Config\Entity\ConfigEntityStorage;
 use Drupal\Core\Entity\EntityInterface;
 
@@ -205,6 +206,7 @@ class ApiSyncMappingStorage extends ConfigEntityStorage {
     $objectTypes = [];
     $mappings = $this->loadByProperties();
     foreach ($mappings as $mapping) {
+      assert($mapping instanceof ApiSyncMappingInterface);
       $type = $mapping->getApiSyncObjectType();
       $objectTypes[$type] = $type;
     }
