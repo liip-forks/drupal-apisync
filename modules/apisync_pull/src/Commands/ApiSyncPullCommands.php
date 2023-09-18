@@ -230,7 +230,7 @@ class ApiSyncPullCommands extends ApiSyncMappingCommandsBase {
       ]));
       $results = $this->client->query($query);
 
-      if (empty($results)) {
+      if ($results->size() === 0) {
         $this->logger()->warning(dt('!mapping: No records found to pull.', ['!mapping' => $mapping->id()]));
         return;
       }
