@@ -40,7 +40,10 @@ class ApiSyncMappedObjectTypeListBuilder extends ConfigEntityListBuilder {
   public function buildRow(EntityInterface $entity): array { // phpcs:ignore
     assert($entity instanceof ApiSyncMappedObjectTypeInterface);
     if (!empty($entity->getFieldMappings())) {
-      $encoded = json_encode($entity->getFieldMappings(), JSON_PRETTY_PRINT) ?? '';
+      $encoded = json_encode($entity->getFieldMappings(), JSON_PRETTY_PRINT) ?: '';
+    }
+    else {
+      $encoded = json_encode([], JSON_PRETTY_PRINT) ?: '';
     }
     $row['label'] = $entity->label();
     $row['id'] = $entity->id();
