@@ -45,7 +45,7 @@ class ApiSyncMappingDisableForm extends EntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array $form, FormStateInterface $formState): void {
+  public function submitForm(array &$form, FormStateInterface $formState): void {
     parent::submitForm($form, $formState);
 
     /** @var \Drupal\apisync_mapping\Entity\ApiSyncMapping $entity */
