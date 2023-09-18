@@ -249,11 +249,11 @@ class PushQueue extends DatabaseQueue implements PushQueueInterface {
       'op' => $data['op'],
       'updated' => $time,
       'failures' => empty($data['failures'])
-        ? 0
-        : $data['failures'],
+      ? 0
+      : $data['failures'],
       'mapped_object_id' => empty($data['mapped_object_id'])
-        ? 0
-        : $data['mapped_object_id'],
+      ? 0
+      : $data['mapped_object_id'],
     ];
 
     $query = $this->connection->merge(static::TABLE_NAME)

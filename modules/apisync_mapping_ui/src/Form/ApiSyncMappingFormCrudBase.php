@@ -259,8 +259,8 @@ abstract class ApiSyncMappingFormCrudBase extends ApiSyncMappingFormBase {
               'Last Pull Date: %last_pull',
               [
                 '%last_pull' => $mapping->getLastPullTime()
-                  ? $this->dateFormatter->format($mapping->getLastPullTime())
-                  : 'never',
+                ? $this->dateFormatter->format($mapping->getLastPullTime())
+                : 'never',
               ]
           ),
           '#markup' => $this->t('Resetting last pull date will cause API sync pull module to query for updated records without respect for the pull trigger date. This is useful, for example, to re-pull all records after a purge.'),
@@ -279,8 +279,8 @@ abstract class ApiSyncMappingFormCrudBase extends ApiSyncMappingFormBase {
               'Last Delete Date: %last_pull',
               [
                 '%last_pull' => $mapping->getLastDeleteTime()
-                  ? $this->dateFormatter->format($mapping->getLastDeleteTime())
-                  : 'never',
+                ? $this->dateFormatter->format($mapping->getLastDeleteTime())
+                : 'never',
               ]
           ),
           '#markup' => $this->t('Resetting last delete date will cause the API sync pull module to query for deleted record without respect for the pull trigger date.'),

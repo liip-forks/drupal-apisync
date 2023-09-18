@@ -196,7 +196,10 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
             new ApiSyncErrorEvent(
                 NULL,
                 'Drupal entity existed at one time for API Sync object %apiSyncId, but does not currently exist.',
-                ['%apiSyncId' => $this->apiSyncIdProvider->getApiSyncId($oDataRecord, $mapping)]
+                [
+                  '%apiSyncId' => $this->apiSyncIdProvider
+                    ->getApiSyncId($oDataRecord, $mapping),
+                ]
             ),
             ApiSyncEvents::ERROR
         );
@@ -359,7 +362,10 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
           new ApiSyncNoticeEvent(
               $e,
               'Pull-create failed for API Sync Object ID: %apiSyncId',
-              ['%apiSyncId' => $this->apiSyncIdProvider->getApiSyncId($oDataRecord, $mapping)]
+              [
+                '%apiSyncId' => $this->apiSyncIdProvider
+                  ->getApiSyncId($oDataRecord, $mapping),
+              ]
           ),
           ApiSyncEvents::WARNING
       );
