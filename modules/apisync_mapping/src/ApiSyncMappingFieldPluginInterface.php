@@ -75,7 +75,7 @@ interface ApiSyncMappingFieldPluginInterface extends PluginFormInterface, Plugin
    * @return mixed
    *   The value to be pushed to remote.
    *
-   * @throws \Drupal\apisync\Exception
+   * @throws \Drupal\apisync\Exception\Exception
    */
   public function pushValue(EntityInterface $entity, ApiSyncMappingInterface $mapping): mixed;
 
