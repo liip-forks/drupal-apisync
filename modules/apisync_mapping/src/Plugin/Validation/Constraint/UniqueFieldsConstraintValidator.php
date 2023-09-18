@@ -51,6 +51,7 @@ class UniqueFieldsConstraintValidator extends ConstraintValidator implements Con
     $query = $this->entityTypeManager
       ->getStorage($entityType->id())
       ->getQuery()
+      ->checkAccess()
       // The id could be NULL, so we cast it to 0 in that case.
       ->condition($idKey, (int) $entity->id(), '<>')
       ->range(0, 1);
