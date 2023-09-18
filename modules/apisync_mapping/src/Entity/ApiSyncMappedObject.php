@@ -172,6 +172,7 @@ class ApiSyncMappedObject extends RevisionableContentEntityBase implements ApiSy
     }
     $count = $storage
       ->getQuery()
+      ->checkAccess(TRUE)
       ->allRevisions()
       ->condition('id', $this->id())
       ->count()
@@ -183,6 +184,7 @@ class ApiSyncMappedObject extends RevisionableContentEntityBase implements ApiSy
     }
     $vidsToDelete = $storage
       ->getQuery()
+      ->checkAccess(TRUE)
       ->allRevisions()
       ->condition('id', $this->id())
       ->range($limit, $count)
