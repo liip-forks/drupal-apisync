@@ -7,6 +7,7 @@
 
 declare(strict_types = 1);
 
+use Drupal\apisync_mapping\ApiSyncMappedObjectStorageInterface;
 use Drupal\apisync_mapping\ApiSyncMappingStorage;
 use Drupal\Core\Entity\EntityInterface;
 
@@ -16,18 +17,20 @@ use Drupal\Core\Entity\EntityInterface;
  * Ensures drupal entity has an update timestamp.
  */
 function apisync_mapping_entity_update(EntityInterface $entity) {
-  $storage = \Drupal::service('entity_type.manager')
+  $mapping_storage = \Drupal::service('entity_type.manager')
     ->getStorage('apisync_mapping');
-  assert($storage instanceof ApiSyncMappingStorage);
+  assert($mapping_storage instanceof ApiSyncMappingStorage);
   // Check for mappings (much faster than looking for mapped objects.)
-  $mappings = $storage->loadByDrupal($entity->getEntityTypeId());
+  $mappings = $mapping_storage->loadByDrupal($entity->getEntityTypeId());
   if (empty($mappings)) {
     return;
   }
 
   // If mappings, check for mapped objects.
-  $mapped_objects = \Drupal::service('entity_type.manager')
-    ->getStorage('apisync_mapped_object')
+  $mapped_object_storage = \Drupal::service('entity_type.manager')
+    ->getStorage('apisync_mapped_object');
+  assert($mapped_object_storage instanceof ApiSyncMappedObjectStorageInterface);
+  $mapped_objects = $mapped_object_storage
     ->loadByDrupal($entity->getEntityTypeId(), $entity->id());
 
   foreach ($mapped_objects as $mapped_object) {
