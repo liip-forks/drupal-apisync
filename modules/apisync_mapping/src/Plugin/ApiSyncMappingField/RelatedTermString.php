@@ -109,7 +109,10 @@ class RelatedTermString extends ApiSyncMappingFieldPluginBase {
     $vocabs = $field->getSetting('handler_settings')['target_bundles'];
 
     // Look for a term that matches the string in the API Sync field.
-    $query = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery();
+    $query = $this->entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->getQuery()
+      ->checkAccess();
     $query->condition('vid', $vocabs, 'IN');
     $query->condition('name', $value);
     $termIds = $query->execute();
