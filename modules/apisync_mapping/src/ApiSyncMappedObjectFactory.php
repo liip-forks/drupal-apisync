@@ -84,7 +84,7 @@ class ApiSyncMappedObjectFactory implements ApiSyncMappedObjectFactoryInterface 
    * @param \Drupal\apisync\OData\ODataObjectInterface $oDataRecord
    *   OData record.
    *
-   * @return \Drupal\apisync_mapping\Entity\ApiSyncMappingInterface
+   * @return \Drupal\apisync_mapping\Entity\ApiSyncMappedObjectInterface
    *   The mapped object.
    */
   public function createFromRecord(
