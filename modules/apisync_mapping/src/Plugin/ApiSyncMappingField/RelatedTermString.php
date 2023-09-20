@@ -112,7 +112,7 @@ class RelatedTermString extends ApiSyncMappingFieldPluginBase {
     $query = $this->entityTypeManager
       ->getStorage('taxonomy_term')
       ->getQuery()
-      ->checkAccess();
+      ->accessCheck();
     $query->condition('vid', $vocabs, 'IN');
     $query->condition('name', $value);
     $termIds = $query->execute();
