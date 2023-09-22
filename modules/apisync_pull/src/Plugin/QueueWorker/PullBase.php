@@ -77,33 +77,42 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
    */
   protected ApiSyncMappedObjectStorageInterface $mappedObjectStorage;
 
-  /**
-   * Creates a new PullBase object.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
-   * @param \Drupal\apisync\OData\ODataClientInterface $client
-   *   OData client.
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-   *   Event dispatcher service.
-   * @param \Drupal\apisync_mapping\ApiSyncIdProviderInterface $apiSyncIdProvider
-   *   API Sync ID Provider.
-   * @param \Drupal\apisync_mapping\ApiSyncMappedObjectFactoryInterface $mappedObjectFactory
-   *   Mapped object factor.
-   */
+    /**
+     * Creates a new PullBase object.
+     *
+     * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+     *   The entity type manager.
+     * @param \Drupal\apisync\OData\ODataClientInterface $client
+     *   OData client.
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     *   Event dispatcher service.
+     * @param \Drupal\apisync_mapping\ApiSyncIdProviderInterface $apiSyncIdProvider
+     *   API Sync ID Provider.
+     * @param \Drupal\apisync_mapping\ApiSyncMappedObjectFactoryInterface $mappedObjectFactory
+     *   Mapped object factor.
+     * @param array $configuration
+     *   The configuration.
+     * @param string $pluginId
+     *   The plugin ID.
+     * @param mixed $pluginDefinition
+     *   The plugin definition.
+     */
   public function __construct(
       EntityTypeManagerInterface $entityTypeManager,
       ODataClientInterface $client,
       EventDispatcherInterface $eventDispatcher,
       ApiSyncIdProviderInterface $apiSyncIdProvider,
-      ApiSyncMappedObjectFactoryInterface $mappedObjectFactory
+      ApiSyncMappedObjectFactoryInterface $mappedObjectFactory,
+      array $configuration,
+      string $pluginId,
+      $pluginDefinition
   ) {
-    // We intentionally don't call the parent's constructor.
     $this->entityTypeManager = $entityTypeManager;
     $this->client = $client;
     $this->eventDispatcher = $eventDispatcher;
     $this->apiSyncIdProvider = $apiSyncIdProvider;
     $this->mappedObjectFactory = $mappedObjectFactory;
+    parent::__construct($configuration, $pluginId, $pluginDefinition);
   }
 
   /**
@@ -120,7 +129,10 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
         $container->get('apisync.odata_client'),
         $container->get('event_dispatcher'),
         $container->get('apisync_mapping.apisync_id_provider'),
-        $container->get('apisync_mapping.mapped_object_factory')
+        $container->get('apisync_mapping.mapped_object_factory'),
+        $configuration,
+        $pluginId,
+        $pluginDefinition
     );
   }
 
