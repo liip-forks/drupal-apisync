@@ -117,7 +117,7 @@ class ApiSyncBasicAuthPlugin extends ApiSyncAuthProviderPluginBase {
    * {@inheritdoc}
    */
   public function getInstanceUrl(): string {
-    return $this->config->get('instance_url');
+    return $this->configuration['instance_url'];
   }
 
   /**
