@@ -8,3 +8,6 @@ apisync_basicauth.settings:
     login_password:
       type: string
       label: 'Login Password'
+    instance_url:
+      type: string
+      label: 'Instance Url'
