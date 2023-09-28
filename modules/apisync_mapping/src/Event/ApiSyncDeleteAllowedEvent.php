@@ -15,11 +15,11 @@ use Drupal\Core\Entity\FieldableEntityInterface;
 class ApiSyncDeleteAllowedEvent extends ApiSyncBaseEvent {
 
   /**
-   * Indicates whether delete is allowed to continue.
+   * Indicates whether delete is prohibited.
    *
    * @var bool
    */
-  protected bool $deleteAllowed;
+  protected bool $deleteProhibited = false;
 
   /**
    * The mapped object.
@@ -94,8 +94,8 @@ class ApiSyncDeleteAllowedEvent extends ApiSyncBaseEvent {
    *   Returns FALSE if DELETE_ALLOWED event has been fired, and any subscriber
    *   wants to prevent delete. Otherwise, returns NULL.
    */
-  public function isDeleteAllowed(): ?bool {
-    return $this->deleteAllowed === FALSE ? FALSE : NULL;
+  public function isDeleteProhibited(): ?bool {
+    return $this->deleteProhibited;
   }
 
   /**
@@ -105,7 +105,7 @@ class ApiSyncDeleteAllowedEvent extends ApiSyncBaseEvent {
    *   The current instance. ($this)
    */
   public function disallowDelete(): static {
-    $this->deleteAllowed = FALSE;
+    $this->deleteProhibited = TRUE;
     return $this;
   }
 
