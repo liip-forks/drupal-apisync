@@ -349,7 +349,7 @@ class ApiSyncMappedObject extends RevisionableContentEntityBase implements ApiSy
   /**
    * {@inheritdoc}
    */
-  public function getMappedEntity(): FieldableEntityInterface {
+  public function getMappedEntity(): ?FieldableEntityInterface {
     return $this->drupal_entity->entity;
   }
 

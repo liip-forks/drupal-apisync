@@ -32,10 +32,10 @@ interface ApiSyncMappedObjectInterface extends EntityChangedInterface, RevisionL
   /**
    * Get the mapped Drupal entity.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\Core\Entity\EntityInterface|null The mapped Drupal entity.
    *   The mapped Drupal entity.
    */
-  public function getMappedEntity(): EntityInterface;
+  public function getMappedEntity(): ?EntityInterface;
 
   /**
    * Return a numeric timestamp for comparing to API Sync record timestamp.
