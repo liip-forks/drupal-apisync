@@ -77,26 +77,26 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
    */
   protected ApiSyncMappedObjectStorageInterface $mappedObjectStorage;
 
-    /**
-     * Creates a new PullBase object.
-     *
-     * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-     *   The entity type manager.
-     * @param \Drupal\apisync\OData\ODataClientInterface $client
-     *   OData client.
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     *   Event dispatcher service.
-     * @param \Drupal\apisync_mapping\ApiSyncIdProviderInterface $apiSyncIdProvider
-     *   API Sync ID Provider.
-     * @param \Drupal\apisync_mapping\ApiSyncMappedObjectFactoryInterface $mappedObjectFactory
-     *   Mapped object factor.
-     * @param array $configuration
-     *   The configuration.
-     * @param string $pluginId
-     *   The plugin ID.
-     * @param mixed $pluginDefinition
-     *   The plugin definition.
-     */
+  /**
+   * Creates a new PullBase object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\apisync\OData\ODataClientInterface $client
+   *   OData client.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+   *   Event dispatcher service.
+   * @param \Drupal\apisync_mapping\ApiSyncIdProviderInterface $apiSyncIdProvider
+   *   API Sync ID Provider.
+   * @param \Drupal\apisync_mapping\ApiSyncMappedObjectFactoryInterface $mappedObjectFactory
+   *   Mapped object factor.
+   * @param array $configuration
+   *   The configuration.
+   * @param string $pluginId
+   *   The plugin ID.
+   * @param mixed $pluginDefinition
+   *   The plugin definition.
+   */
   public function __construct(
       EntityTypeManagerInterface $entityTypeManager,
       ODataClientInterface $client,

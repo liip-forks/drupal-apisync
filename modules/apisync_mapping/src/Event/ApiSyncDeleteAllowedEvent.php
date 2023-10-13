@@ -19,7 +19,7 @@ class ApiSyncDeleteAllowedEvent extends ApiSyncBaseEvent {
    *
    * @var bool
    */
-  protected bool $deleteProhibited = false;
+  protected bool $deleteProhibited = FALSE;
 
   /**
    * The mapped object.
