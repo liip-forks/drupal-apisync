@@ -32,7 +32,7 @@ interface ApiSyncMappedObjectInterface extends EntityChangedInterface, RevisionL
   /**
    * Get the mapped Drupal entity.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|null The mapped Drupal entity.
+   * @return \Drupal\Core\Entity\EntityInterface|null
    *   The mapped Drupal entity.
    */
   public function getMappedEntity(): ?EntityInterface;

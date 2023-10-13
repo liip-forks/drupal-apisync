@@ -31,9 +31,9 @@ abstract class ApiSyncPushEvent extends ApiSyncBaseEvent {
   /**
    * The Drupal entity.
    *
-   * @var \Drupal\Core\Entity\FieldableEntityInterface
+   * @var \Drupal\Core\Entity\FieldableEntityInterface|null
    */
-  protected FieldableEntityInterface $entity;
+  protected ?FieldableEntityInterface $entity;
 
   /**
    * Constructor for a ApiSyncPushEvent object.
@@ -43,17 +43,17 @@ abstract class ApiSyncPushEvent extends ApiSyncBaseEvent {
    */
   public function __construct(ApiSyncMappedObjectInterface $mappedObject) {
     $this->mappedObject = $mappedObject;
-    $this->entity = ($mappedObject) ? $mappedObject->getMappedEntity() : NULL;
-    $this->mapping = ($mappedObject) ? $mappedObject->getMapping() : NULL;
+    $this->entity = $mappedObject->getMappedEntity();
+    $this->mapping = $mappedObject->getMapping();
   }
 
   /**
    * Entity getter.
    *
-   * @return \Drupal\Core\Entity\FieldableEntityInterface
+   * @return \Drupal\Core\Entity\FieldableEntityInterface|null The entity.
    *   The entity.
    */
-  public function getEntity(): FieldableEntityInterface {
+  public function getEntity(): ?FieldableEntityInterface {
     return $this->entity;
   }
 
