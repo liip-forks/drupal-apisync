@@ -25,19 +25,6 @@ class ODataObject implements ODataObjectInterface {
   public function __construct(array $data = []) {
     $this->fields = [];
     foreach ($data as $key => $value) {
-
-      // Encoding issue with name, cropped multibyte characters.
-      if (is_string($value) && mb_strlen($value) !== strlen($value)) {
-        $stringArray = str_split($value);
-        // If the last character is broken and the second
-        // last is a UTF-8 character. Cut off the last 2
-        // character.
-        if (mb_detect_encoding($stringArray[strlen($value) - 1]) === FALSE
-            && mb_detect_encoding($stringArray[strlen($value) - 2]) === 'UTF-8'
-        ) {
-          $value = substr($value, 0, -2);
-        }
-      }
       $this->fields[$key] = $value;
     }
   }
