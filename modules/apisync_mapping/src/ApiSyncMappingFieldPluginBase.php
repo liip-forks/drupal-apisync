@@ -286,9 +286,9 @@ abstract class ApiSyncMappingFieldPluginBase extends PluginBase implements ApiSy
 
     if (isset($fieldDefinition['length'])
         && $fieldDefinition['length'] > 0
-        && strlen($value) > $fieldDefinition['length']
+        && mb_strlen($value) > $fieldDefinition['length']
     ) {
-      $value = substr($value, 0, $fieldDefinition['length']);
+      $value = mb_substr($value, 0, $fieldDefinition['length']);
     }
 
     return $value;
@@ -349,9 +349,9 @@ abstract class ApiSyncMappingFieldPluginBase extends PluginBase implements ApiSy
         if (is_string($value)
             && isset($drupalFieldSettings['max_length'])
             && $drupalFieldSettings['max_length'] > 0
-            && $drupalFieldSettings['max_length'] < strlen($value)
+            && $drupalFieldSettings['max_length'] < mb_strlen($value)
         ) {
-          $value = substr($value, 0, $drupalFieldSettings['max_length']);
+          $value = mb_substr($value, 0, $drupalFieldSettings['max_length']);
         }
         break;
     }
