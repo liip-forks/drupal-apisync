@@ -211,6 +211,7 @@ class QueueHandler {
       $this->enqueueAllResults($mapping, $results, $forcePull);
       return $results->size();
     }
+    return FALSE;
   }
 
   /**
@@ -264,7 +265,7 @@ class QueueHandler {
    *   Timestamp of ending window from which to pull records. If omitted, use
    *   "now".
    *
-   * @return \Drupal\apisync\OData\SelectQueryResultInterface
+   * @return \Drupal\apisync\OData\SelectQueryResultInterface|null
    *   returned result object from remote.
    *
    * @see ApiSyncMappingInterface
@@ -274,7 +275,7 @@ class QueueHandler {
       array $mappedFields = [],
       int $start = 0,
       int $stop = 0
-  ): SelectQueryResultInterface {
+  ): SelectQueryResultInterface|null {
     try {
       $query = $mapping->getPullQuery($mappedFields, $start, $stop);
       $this->eventDispatcher->dispatch(
@@ -289,6 +290,7 @@ class QueueHandler {
           new ApiSyncErrorEvent($e, ApiSyncErrorEvent::BASE_ERROR_MESSAGE, $args),
           ApiSyncEvents::ERROR
       );
+      return NULL;
     }
   }
 
