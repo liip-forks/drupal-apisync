@@ -96,7 +96,13 @@ class ApiSyncMappedObjectDeleteForm extends ContentEntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $formState): void {
     /** @var \Drupal\apisync_mapping\Entity\ApiSyncMappedObjectInterface $mappedObject */
     $mappedObject = $this->getEntity();
-    $formState->setRedirectUrl($mappedObject->getMappedEntity()->toUrl());
+    $mappedEntity = $mappedObject->getMappedEntity();
+    // The mapped object may not have been deleted immediately with the mapped
+    // entity as a push_delete may be queued. It should still be possible to
+    // manually delete the mapped object.
+    if ($mappedEntity) {
+        $formState->setRedirectUrl($mappedEntity->toUrl());
+    }
     $args = ['@id' => $mappedObject->apisync_id->value];
     $message = $this->t('ApiSyncMappedObject @id deleted.', $args);
     $this->messenger()->addMessage($message);
