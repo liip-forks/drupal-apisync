@@ -31,7 +31,7 @@ class SettingsForm extends ConfigFormBase {
    *
    * @var \Drupal\Core\Config\TypedConfigManagerInterface
    */
-  protected TypedConfigManagerInterface $typedConfigManager;
+  protected $typedConfigManager;
 
   /**
    * The module handler.
