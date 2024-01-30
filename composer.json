@@ -37,7 +37,7 @@
     "ext-mbstring": "*",
     "drupal/address": "^1.8",
     "drupal/key": "^1.14",
-    "drupal/dynamic_entity_reference": "^1.9 || ^2.0",
+    "drupal/dynamic_entity_reference": "^3.1 || ^4.0",
     "drupal/typed_data": "^1.0-alpha5"
   },
   "require-dev": {
