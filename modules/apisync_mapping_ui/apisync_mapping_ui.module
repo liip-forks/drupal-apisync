@@ -21,7 +21,7 @@ use Drupal\apisync_mapping_ui\Form\ApiSyncMappingEditForm;
 use Drupal\apisync_mapping_ui\Form\ApiSyncMappingEnableForm;
 use Drupal\apisync_mapping_ui\Form\ApiSyncMappingFieldsForm;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 
 /**
  * Implements hook_entity_type_alter().
