@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Push actions enum.
- */
-
 declare(strict_types = 1);
 
 namespace Drupal\apisync_mapping;
