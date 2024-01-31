@@ -20,7 +20,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *     "list_builder" = "Drupal\apisync_mapping\ApiSyncMappedObjectTypeListBuilder",
  *     "access" = "Drupal\apisync_mapping\ApiSyncMappedObjectTypeAccessController",
  *     "route_provider" = {
- *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
+ *       "default" = "Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider",
  *      },
  *   },
  *   config_prefix = "apisync_mapped_object_type",
