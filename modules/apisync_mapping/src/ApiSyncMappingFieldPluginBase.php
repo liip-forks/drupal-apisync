@@ -439,8 +439,8 @@ abstract class ApiSyncMappingFieldPluginBase extends PluginBase implements ApiSy
       ],
       '#required' => TRUE,
       '#default_value' => $this->config('direction')
-      ? $this->config('direction')
-      : MappingConstants::APISYNC_MAPPING_DIRECTION_SYNC,
+        ? $this->config('direction')
+        : MappingConstants::APISYNC_MAPPING_DIRECTION_SYNC,
       '#attributes' => ['class' => ['narrow']],
     ];
     $pluginForm['description'] = [
