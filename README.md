@@ -1,8 +1,7 @@
 # Drupal API Sync Module
 
-This is a Sandbox of the module which we intend to Open Source. Before doing so, we need to complete the following steps:
+This module can be used to synchronize data with an oData source.
 
-- [ ] Add test coverage.
-- [ ] Test code on a live environment.
+Further documentation on how to configure the module will follow.
 
-Note: This is a fork of the [Drupal Salesforce Module](https://www.drupal.org/project/salesforce)
+The module is a fork of the [Drupal Salesforce Module](https://www.drupal.org/project/salesforce)

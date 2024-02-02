@@ -50,7 +50,7 @@ abstract class ApiSyncPushEvent extends ApiSyncBaseEvent {
   /**
    * Entity getter.
    *
-   * @return \Drupal\Core\Entity\FieldableEntityInterface|null The entity.
+   * @return \Drupal\Core\Entity\FieldableEntityInterface|null
    *   The entity.
    */
   public function getEntity(): ?FieldableEntityInterface {

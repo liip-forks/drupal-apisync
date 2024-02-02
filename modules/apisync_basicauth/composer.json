@@ -1,0 +1,27 @@
+{
+    "name": "drupal/apisync_basic_auth",
+    "description": "Provide basic auth authentication",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "ayalon",
+            "homepage": "https://www.drupal.org/u/ayalon",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Trent Crawford",
+            "email": "trent.crawford@liip.ch"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0",
+        "lusitanian/oauth": "^0.8.11"
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

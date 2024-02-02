@@ -5,6 +5,7 @@ package: Liip
 core_version_requirement: ^9.1 || ^10
 dependencies:
   - apisync:apisync
+  - apisync:apisync_logger
   - dynamic_entity_reference:dynamic_entity_reference
   - typed_data:typed_data
 configure: entity.apisync_mapped_object_type.collection

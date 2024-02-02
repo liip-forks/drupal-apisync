@@ -126,8 +126,8 @@ class ApiSyncBasicAuthPlugin extends ApiSyncAuthProviderPluginBase {
   public function getMetadataUrl(): string {
     $url = $this->configuration['instance_url'];
 
-    if (strpos($url, '/') !== 0) {
-      $url = $url . '/';
+    if (!str_starts_with($url, '/')) {
+      $url .= '/';
     }
 
     $url = preg_replace('/Company\(\'[^\']+\'\)\//', '', $url);

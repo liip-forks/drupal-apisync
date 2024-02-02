@@ -41,6 +41,6 @@
     "drupal/typed_data": "^1.0-alpha5"
   },
   "require-dev": {
-
+    "drupal/coder": "^8.3"
   }
 }
