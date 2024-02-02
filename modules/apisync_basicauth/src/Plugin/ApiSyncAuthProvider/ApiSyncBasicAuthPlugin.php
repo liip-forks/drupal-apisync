@@ -124,17 +124,7 @@ class ApiSyncBasicAuthPlugin extends ApiSyncAuthProviderPluginBase {
    * {@inheritdoc}
    */
   public function getMetadataUrl(): string {
-    $url = $this->configuration['instance_url'];
-
-    if (!str_starts_with($url, '/')) {
-      $url .= '/';
-    }
-
-    $url = preg_replace('/Company\(\'[^\']+\'\)\//', '', $url);
-
-    $url .= '$metadata';
-
-    return $url;
+    return rtrim($this->configuration['instance_url'], '/') . '/$metadata';
   }
 
   /**
@@ -155,12 +145,11 @@ class ApiSyncBasicAuthPlugin extends ApiSyncAuthProviderPluginBase {
 
   /**
    * {@inheritdoc}
-   *
-   * For ApiSyncBasicAuthPlugin, the token is always made
-   * out of user and password and thus can not be revoked.
    */
   public function revokeAccessToken(): void {
-
+    // Noop.
+    // For ApiSyncBasicAuthPlugin, the token is always made
+    // out of user and password and thus can not be revoked.
   }
 
   /**
@@ -178,7 +167,8 @@ class ApiSyncBasicAuthPlugin extends ApiSyncAuthProviderPluginBase {
    * {@inheritdoc}
    */
   public function getCredentials(): ApiSyncCredentialsInterface {
-    // Credentials are not required for basic auth.
+    // Credentials are not required for basic auth ( so we probably have the
+    // wrong abstraction here).
     return new ApiSyncCredentials('', '', '');
   }
 
