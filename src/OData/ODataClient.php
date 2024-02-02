@@ -257,6 +257,7 @@ class ODataClient implements ODataClientInterface {
     if (!$this->authToken) {
       throw new \Exception('Missing OAuth Token');
     }
+    // @todo The oData client should not need knowledge of the auth provider.
     if ($this->authProvider->id() === 'basic_auth') {
       $headers += [
         'Authorization' => 'Basic ' . $this->authToken->getAccessToken(),
