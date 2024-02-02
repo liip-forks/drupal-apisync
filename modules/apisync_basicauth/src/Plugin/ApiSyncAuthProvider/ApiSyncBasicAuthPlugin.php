@@ -131,6 +131,8 @@ class ApiSyncBasicAuthPlugin extends ApiSyncAuthProviderPluginBase {
    * {@inheritdoc}
    */
   public function getAccessToken(): TokenInterface {
+    // @todo Separate interfaces so we don't need to force basic auth into
+    // and oAuth abstraction.
     return new StdOAuth2Token(
       base64_encode($this->configuration['login_user'] . ':' . $this->configuration['login_password'])
     );
