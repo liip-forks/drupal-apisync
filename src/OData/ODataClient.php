@@ -443,9 +443,7 @@ class ODataClient implements ODataClientInterface {
       $objects = $cache->data;
     }
     else {
-      // Fetch the metadata from the oauth API.
       $url = $this->authProvider->getMetadataUrl();
-
       $result = new XMLResponse($this->apiXmlHttpRequest($url));
       $parser = new ODataMetadataParser($result->data);
       $objects = $parser->getSchemaProperties();
