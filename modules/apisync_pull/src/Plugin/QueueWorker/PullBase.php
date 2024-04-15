@@ -228,10 +228,10 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
       $entityUpdated = !empty($entity->changed->value)
         ? $entity->changed->value
         : $mappedObject->getChanged();
+      $pullTriggerDate = $mapping->getPullTriggerDate() ? $oDataRecord->field($mapping->getPullTriggerDate()) : NULL;
 
-      $pullTriggerDate =
-        $oDataRecord->field($mapping->getPullTriggerDate());
-      $apiSyncRecordUpdated = strtotime($pullTriggerDate);
+      // We set this to null if we don't know when it was last updated.
+      $apiSyncRecordUpdated = is_string($pullTriggerDate) ? strtotime($pullTriggerDate) : NULL;
 
       $mappedObject
         ->setDrupalEntity($entity)
@@ -254,8 +254,14 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
         );
         return NULL;
       }
-
-      if ($apiSyncRecordUpdated > $entityUpdated || $mappedObject->get('force_pull')->value || $forcePull) {
+      // @todo Store the eTag and use this to determine if the entity has been
+      // updated if we don't have support for the last modified (updated) date.
+      if (
+        $forcePull ||
+        $apiSyncRecordUpdated === NULL ||
+        $apiSyncRecordUpdated > $entityUpdated ||
+        $mappedObject->get('force_pull')->value
+      ) {
         // Set fields values on the Drupal entity.
         $mappedObject->pull();
         $this->eventDispatcher->dispatch(

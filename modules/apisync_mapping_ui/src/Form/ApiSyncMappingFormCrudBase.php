@@ -300,9 +300,9 @@ abstract class ApiSyncMappingFormCrudBase extends ApiSyncMappingFormBase {
         $form['pull']['pull_trigger_date'] = [
           '#type' => 'select',
           '#title' => $this->t('Date field to trigger pull'),
-          '#description' => $this->t('Poll the remote endpoint for updated records based on the given date field. Defaults to "Last Modified Date".'),
+          '#description' => $this->t('Poll the remote endpoint for updated records based on the given date field. If not specified, all records will be pulled'),
           '#required' => FALSE,
-          '#default_value' => $mapping->pull_trigger_date,
+          '#default_value' => $mapping->getPullTriggerDate(),
           '#options' => $this->getPullTriggerOptions(),
         ];
       }

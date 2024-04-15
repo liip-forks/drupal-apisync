@@ -96,10 +96,10 @@ interface ApiSyncMappingInterface extends ConfigEntityInterface, EntityWithPlugi
   /**
    * The API Sync date field which determines whether to pull.
    *
-   * @return string
+   * @return string|null
    *   API Sync field name.
    */
-  public function getPullTriggerDate(): string;
+  public function getPullTriggerDate(): string|null;
 
   /**
    * Getter for push_standalone property.

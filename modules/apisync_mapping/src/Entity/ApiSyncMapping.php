@@ -128,9 +128,9 @@ class ApiSyncMapping extends ConfigEntityBase implements ApiSyncMappingInterface
   /**
    * The API Sync field to use for determining whether or not to pull.
    *
-   * @var string
+   * @var string|null
    */
-  protected string $pull_trigger_date = 'Last_Change_Date';
+  protected string|null $pull_trigger_date = NULL;
 
   /**
    * Additional "where" logic to append to pull-polling query.
@@ -497,7 +497,7 @@ class ApiSyncMapping extends ConfigEntityBase implements ApiSyncMappingInterface
   /**
    * {@inheritdoc}
    */
-  public function getPullTriggerDate(): string {
+  public function getPullTriggerDate(): string|null {
     return $this->pull_trigger_date;
   }
 
@@ -680,11 +680,13 @@ class ApiSyncMapping extends ConfigEntityBase implements ApiSyncMappingInterface
     foreach ($mappedObjectType->getFieldMappings() as $keyFieldMapping) {
       $query->addField($keyFieldMapping['apisync_field']);
     }
-    // Filter by Last Date Changed.
-    $query->addField($this->getPullTriggerDate());
+    // Filter by the pull trigger date.
+    if ($this->getPullTriggerDate()) {
+      $query->addField($this->getPullTriggerDate());
+    }
     $start = $start > 0 ? $start : $this->getLastPullTime();
     // If no lastupdate and no start window provided, get all records.
-    if ($start) {
+    if ($start && $this->getPullTriggerDate()) {
       $start = gmdate('Y-m-d\TH:i:s\Z', $start);
       $query->addCondition($this->getPullTriggerDate(), $start, '>');
     }
