@@ -5,7 +5,7 @@
  * Push updates to remote when a Drupal entity is updated.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\apisync\Event\ApiSyncErrorEvent;
 use Drupal\apisync\Event\ApiSyncEvents;

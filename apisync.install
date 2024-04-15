@@ -5,7 +5,7 @@
  * API Sync install file.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Implements hook_uninstall().

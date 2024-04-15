@@ -5,7 +5,7 @@
  * Manages API Sync object and Drupal entity mappings.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\apisync_mapping\ApiSyncMappedObjectTypeListBuilder;
 use Drupal\apisync_mapping_ui\ApiSyncMappedObjectList;
