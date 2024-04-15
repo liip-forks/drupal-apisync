@@ -16,6 +16,7 @@ use Drupal\apisync_mapping\Event\ApiSyncPushAllowedEvent;
 use Drupal\apisync_mapping\Event\ApiSyncPushOpEvent;
 use Drupal\apisync_mapping\MappingConstants;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\SynchronizableInterface;
 
 /**
  * Implements hook_entity_insert().
@@ -54,8 +55,10 @@ function apisync_push_entity_delete(EntityInterface $entity) {
  *   https://www.drupal.org/node/2551893
  */
 function apisync_push_entity_crud(EntityInterface $entity, $op) {
-  // Don't allow mapped objects, mappings or mapped object types to be pushed!
-  if (!empty($entity->apisync_pull)
+  // Don't allow syncing entities, mapped objects, mappings or mapped object
+  // types to be pushed!
+  $entity_is_syncing = $entity instanceof SynchronizableInterface && $entity->isSyncing();
+  if ($entity_is_syncing
       || $entity instanceof ApiSyncMappedObjectInterface
       || $entity instanceof ApiSyncMappingInterface
       || $entity instanceof ApiSyncMappedObjectTypeInterface

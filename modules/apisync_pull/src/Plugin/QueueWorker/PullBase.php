@@ -18,6 +18,7 @@ use Drupal\apisync_mapping\Entity\ApiSyncMappingInterface;
 use Drupal\apisync_mapping\Event\ApiSyncPullEvent;
 use Drupal\apisync_mapping\MappingConstants;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\SynchronizableInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueWorkerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -218,9 +219,11 @@ abstract class PullBase extends QueueWorkerBase implements ContainerFactoryPlugi
         return NULL;
       }
 
-      // Flag this entity as having been processed. This does not persist,
+      // Flag this entity as being synchronized. This does not persist,
       // but is used by apisync_push to avoid duplicate processing.
-      $entity->apisync_pull = TRUE;
+      if ($entity instanceof SynchronizableInterface) {
+        $entity->setSyncing(TRUE);
+      }
 
       $entityUpdated = !empty($entity->changed->value)
         ? $entity->changed->value
